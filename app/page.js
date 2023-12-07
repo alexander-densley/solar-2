@@ -23,7 +23,6 @@ export default function Home() {
 			const newLongLat = data.results[0].geometry.location
 			setLongLat(newLongLat)
 
-			// Call getSolarData with the new longLat values
 			await getSolarData(newLongLat)
 		} catch (error) {
 			console.log(error)
@@ -57,15 +56,15 @@ export default function Home() {
 					/>
 					<input
 						type='submit'
-						className='border-black w-16 self- border-2 border-solid rounded-md hover:bg-slate-500 active:bg-slate-700 p-2'
+						className='border-black border-2 my-4 border-solid rounded-md hover:bg-slate-500 active:bg-slate-700 p-2'
 						onClick={(e) => {
 							e.preventDefault()
 							getLongLat()
 						}}
 					/>
 				</div>
+				<iframe src='https://www.alexanderdensley.com' frameborder='1'></iframe>
 			</div>
-			<iframe src='https://www.alexanderdensley.com' frameborder='1'></iframe>
 		</>
 	)
 }
