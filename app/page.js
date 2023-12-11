@@ -5,6 +5,7 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
 export default function Home() {
 	const [value, setValue] = useState(null)
 	const [longLat, setLongLat] = useState(null)
+	const [data, setData] = useState(null)
 
 	async function getLongLat() {
 		try {
@@ -39,14 +40,15 @@ export default function Home() {
 			process.env.NEXT_PUBLIC_GOOGLE_API_KEY
 		const response = await fetch(solarUrl)
 		const data = await response.json()
-		console.log(data.solarPotential)
+		console.log(data)
+		setData(data.solarPotential)
 	}
 
 	return (
 		<>
 			<div className='flex flex-col mt-40 justify-center items-center'>
 				<p className='text-4xl mb-24'>Enter address...</p>
-				<div className='w-72 flex flex-col justify-center'>
+				<div className='w-96 flex flex-col justify-center'>
 					<GooglePlacesAutocomplete
 						apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
 						selectProps={{
@@ -62,9 +64,20 @@ export default function Home() {
 							getLongLat()
 						}}
 					/>
+					{data ? (
+						<>
+							<p>{data.maxSunshineHoursPerYear} max sunshine hours per year</p>
+							<p>{data.panelLifetimeYears} lifetime of panels</p>
+						</>
+					) : null}
 				</div>
-				<iframe src='https://www.alexanderdensley.com' frameborder='1'></iframe>
 			</div>
+			<iframe
+				src='https://www.trytalked.com'
+				width='50%'
+				frameborder='1'
+				className='w-full h-screen'
+			></iframe>
 		</>
 	)
 }
